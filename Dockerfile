@@ -1,12 +1,12 @@
 FROM ruby:2-slim
 
-LABEL "name"="Kustomized Namespaces - Cleanup Overlay"
+LABEL "name"="Kustomized Namespace - Cleanup Overlay"
 LABEL "maintainer"="Brett Dudo <brett@dudo.io>"
 LABEL "version"="0.9.0"
 
 LABEL "com.github.actions.icon"="trash"
 LABEL "com.github.actions.color"="red"
-LABEL "com.github.actions.name"="Kustomized Namespaces - Cleanup Overlay"
+LABEL "com.github.actions.name"="Kustomized Namespace - Cleanup Overlay"
 LABEL "com.github.actions.description"="This deletes an overlay, and associated files"
 COPY LICENSE README.md /
 
