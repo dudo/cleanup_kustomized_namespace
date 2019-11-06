@@ -10,11 +10,11 @@ $opts = Slop.parse do |o|
   o.separator 'example: cleanup_overlay --namespace my-namespace --cluster-repo my-company/my-cluster'
   o.separator ''
   o.separator 'options:'
-  o.string '-r', '--cluster-repo', 
+  o.string '-r', '--cluster-repo',
     'GitHub repository that controls your cluster', default: ENV['CLUSTER_REPO']
-  o.string '-n', '--namespace', 
-    'desired namespace, or inferred from GITHUB_REF', default: ENV['GITHUB_REF']&.split('/')&.reject{ |i| %w(refs heads).include? i }&.join('-')
-  o.string '-T', '--token', 
+  o.string '-n', '--namespace',
+    'desired namespace, or inferred from GITHUB_HEAD_REF', default: ENV['GITHUB_HEAD_REF']&.split('/')&.join('-')
+  o.string '-T', '--token',
     'GitHub access token with repos access, _NOT_ GITHUB_TOKEN', default: ENV['TOKEN']
   o.boolean '--flux',
     'Modifies manifests for automated Flux deployments', default: false
