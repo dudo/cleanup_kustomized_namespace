@@ -1,0 +1,22 @@
+name: Kustomized Namespace - Cleanup Overlay
+description: This deletes an overlay, and associated files
+author: dudo
+inputs:
+  cluster-repo:
+    description: GitHub repository that controls your cluster
+    default: ENV['CLUSTER_REPO']
+  namespace:
+    description: Desired namespace, or inferred from GITHUB_HEAD_REF
+    default: ENV['GITHUB_HEAD_REF']
+  token:
+    description: GitHub access token with cluster-repo's access, _NOT_ GITHUB_TOKEN
+    default: ENV['TOKEN']
+  flux:
+    description: Modifies manifests for automated Flux deployments
+    default: false
+  dry-run:
+    description: Print out yaml files to be created in GitHub - Do NOT commit
+    default: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
