@@ -1,5 +1,7 @@
 name: Kustomized Namespace - Cleanup Overlay
 description: This deletes an overlay, and associated files
+icon: trash
+color: red
 author: dudo
 inputs:
   cluster-repo:
