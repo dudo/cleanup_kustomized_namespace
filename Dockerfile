@@ -2,7 +2,7 @@ FROM ruby:2-slim
 
 LABEL "name"="Kustomized Namespace - Cleanup Overlay"
 LABEL "maintainer"="Brett Dudo <brett@dudo.io>"
-LABEL "version"="0.9.0"
+LABEL "version"="1.0.0"
 
 LABEL "com.github.actions.icon"="trash"
 LABEL "com.github.actions.color"="red"
