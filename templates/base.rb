@@ -5,7 +5,7 @@ require 'yaml'
 module Templates
   class Base
     attr_reader :namespace, :options
-    
+
     def initialize(namespace:, **options)
       @namespace = namespace
       @options = options
