@@ -60,3 +60,24 @@ This simply removes all overlays in the given namespace.
     docker run kustomized_namespaces/cleanup:latest -r dudo/k8s_colors -n feature_branch_1 --dry-run
 
 Really, you'd only see a file change here if you were using `--flux` and had already created the namespace, since we'd be modifying the generators. Otherwise this has no manifests to output.
+
+### Example GitHub Actions Workflow
+
+    on:
+      pull_request:
+        types: [unlabeled] # or closed, but you'll need to remove the conditional in tear_down
+    name: Clean up
+    env:
+      CLUSTER_REPO: dudo/k8s_colors
+    jobs:
+      tear_down:
+        if: github.event.label.name == 'deploy'
+        name: Tear down feature branch
+        runs-on: ubuntu-latest
+        steps:
+        - name: Kustomized Namespace - Cleanup Overlay
+          env:
+            TOKEN: ${{ secrets.TOKEN }}
+          uses: zyngl/cleanup_kustomized_namespace@v1.1.0
+          with:
+            args: --flux
