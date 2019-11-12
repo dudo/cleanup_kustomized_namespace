@@ -14,18 +14,19 @@ Octokit.configure do |c|
 end
 
 class Manifest
-  attr_reader :client, :repo, :namespace
+  attr_reader :client, :repo, :service, :namespace
 
-  def initialize(cluster_repo:, namespace:, token:)
+  def initialize(service:, cluster_repo:, namespace:, token:)
     puts 'Connecting to GitHub...'
     @client = Octokit::Client.new(access_token: token)
     @repo = cluster_repo
+    @service = service
     @namespace = namespace
     @templates = []
   end
 
   def self.cleanup(options = {})
-    instance = new(**options.slice(:cluster_repo, :namespace, :token))
+    instance = new(**options.slice(:service, :cluster_repo, :namespace, :token))
     instance.create_flux_manifest if options[:flux]
 
     if options[:dry_run]
@@ -51,7 +52,7 @@ class Manifest
     base_tree = client.tree(repo, sha_base_tree, recursive: true)
 
     clean_tree = base_tree.tree
-                          .select { |o| o.type == 'blob' && !o.path.include?("overlays/#{namespace}") }
+                          .select { |o| o.type == 'blob' && !o.path.include?("#{service}/overlays/#{namespace}") }
                           .map { |o| o.to_h.slice(:path, :mode, :type, :sha) }
     sha_new_tree = client.create_tree(repo, clean_tree).sha
     sha_new_tree = client.create_tree(repo, new_blobs, base_tree: sha_new_tree).sha

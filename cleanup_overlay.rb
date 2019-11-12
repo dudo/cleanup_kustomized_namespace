@@ -10,6 +10,9 @@ $options = Slop.parse do |o|
   o.separator 'example: cleanup_overlay --namespace my-namespace --cluster-repo my-company/my-cluster'
   o.separator ''
   o.separator 'options:'
+  o.string '-s', '--service',
+           'The service to remove from your cluster',
+           default: ENV['SERVICE']
   o.string '-r', '--cluster-repo',
            'GitHub repository that controls your cluster',
            default: ENV['CLUSTER_REPO']
